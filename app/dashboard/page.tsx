@@ -16,7 +16,7 @@ const DashboardPage = () => {
         )}
       </p>
       <h1 className="text-4xl font-bold">Dashboard</h1>
-      <p className="mt-4 text-lg">Welcome to your dashboard!</p>
+      <p className="mt-4 text-lg">Bienvenido a tu dashboard!</p>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import Button from "@/components/ui/button";
 import { handleLoginSubmission } from "./handle-login-submission";
 import { useActionState } from "react";
 
@@ -44,12 +45,13 @@ const LoginForm = () => {
               />
             </div>
           </div>
-          <button
+          <Button
             type="submit"
-            className="w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors"
+            className="rounded-lg"
+            fullWidth
           >
             Login
-          </button>
+          </Button>
           {formState?.error && (
             <p className="text-red-500 text-sm mt-2">
               {formState.error}
