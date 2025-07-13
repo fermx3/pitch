@@ -10,7 +10,7 @@ const LoginForm = () => {
   const [formState, formAction] = useActionState(handleLoginSubmission, initialState);
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <div className="flex items-center justify-center p-6 sm:min-h-[80dvh]">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-sm">
         <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
         <form action={formAction} className="space-y-6">

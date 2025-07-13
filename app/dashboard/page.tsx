@@ -6,7 +6,7 @@ const DashboardPage = () => {
   const { data: session } = useSession();
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
+    <div className="flex flex-col items-center justify-center p-6 sm:min-h-[80dvh]">
       <p
         className="text-sm"
         style={{ color: session?.user.role === 'admin' ? 'red' : 'black' }}>

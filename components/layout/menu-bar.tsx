@@ -15,11 +15,16 @@ const MenuBar = ({ buttons }: MenuBarProps) => {
     <nav className="flex flex-wrap sm:flex-row flex-col-reverse items-center justify-between sm:gap-4 gap-8 sm:px-6 py-3 sm:w-full max-w-dvh">
       <div className="flex flex-wrap sm:flex-row flex-col items-center gap-6">
         {buttons.map((button, index) => (
-          <Button key={index} variant={"outline"} type="button">
-            <Link href={button.href} className="text-blue-600 hover:underline">
+            <Button
+            key={index}
+            variant="outline"
+            type="button"
+            className="w-full sm:w-auto"
+            >
+            <Link href={button.href}>
               {button.label}
             </Link>
-          </Button>
+            </Button>
         ))}
       </div>
       <div className="flex items-center gap-3">
