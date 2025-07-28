@@ -14,7 +14,7 @@ const CategoryProductsPage = () => {
   useEffect(() => {
     if (!category) return;
     setLoading(true);
-    fetch(`/api/products/${category}`)
+    fetch(`/api/products/category/${category}`)
       .then((res) => res.json())
       .then((data) => setProducts(data))
       .finally(() => setLoading(false));

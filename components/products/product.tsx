@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import AddToCartButton from "./add-to-cart-button";
 import React from "react";
 import { ProductType } from "@/types/product";
@@ -18,9 +19,9 @@ const Product = (product: ProductType) => {
       <div className="flex-1">
         <h1 className="text-2xl font-bold mb-2">{product.name}</h1>
         {product.category && (
-          <div className="text-xs text-gray-400 mb-2 capitalize">
+          <Link href={`/dashboard/customer/products/categories/${product.category}`} className="text-xs text-gray-400 mb-1 capitalize">
             {product.category}
-          </div>
+          </Link>
         )}
         <div className="mb-4">
           {product.precio_en_oferta ? (
