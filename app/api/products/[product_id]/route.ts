@@ -5,8 +5,10 @@ export async function GET(
   req: NextRequest,
   { params }: { params: { product_id: string } }
 ) {
-  const response = await params;
-  const id = Number(response.product_id);
+  const { product_id } = await params;
+
+  const id = Number(product_id);
+
   if (isNaN(id)) {
     return new Response("Invalid product id", { status: 400 });
   }
