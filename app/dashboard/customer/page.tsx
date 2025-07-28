@@ -1,11 +1,27 @@
 "use client";
+
+import { useEffect, useState } from 'react';
+
 import MenuBar from "@/components/layout/menu-bar";
 import SectionHeader from "@/components/layout/section-header";
-import ProductPreview from "@/components/role-specific/product-preview";
+import ProductsGrid from "@/components/products/products-grid";
 import Card from "@/components/ui/card";
 import Grid from "@/components/ui/grid";
 
 const CustomerPage = () => {
+
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    async function fetchProducts() {
+      const res = await fetch('/api/products/top');
+      console.log(res)
+      const data = await res.json();
+      setProducts(data);
+    }
+    fetchProducts();
+  }, []);
+
   return (
     <div className="flex flex-col items-center container mx-auto mt-8 px-4 max-w-dvw">
       <SectionHeader
@@ -14,8 +30,8 @@ const CustomerPage = () => {
       />
       <MenuBar buttons={[
         { label: "Promociones", href: "/dashboard/customer/promotions" },
-        { label: "Pedidos", href: "/dashboard/customer/orders" },
         { label: "Productos", href: "/dashboard/customer/products" },
+        { label: "Pedidos", href: "/dashboard/customer/orders" },
         { label: "Perfil", href: "/dashboard/customer/profile" },
         { label: "Soporte", href: "/dashboard/customer/support" }
       ]}/>
@@ -24,7 +40,7 @@ const CustomerPage = () => {
           title="Promociones Especiales"
           description="Descubre nuestras últimas ofertas y promociones exclusivas para clientes."
           buttonText="Ver más"
-          onButtonClick={() => alert("Ver promociones clicked!")}
+          href='/dashboard/customer/promotions'
         >
           <p className="mt-2 text-gray-500">
             Aprovecha descuentos exclusivos y ofertas limitadas solo para ti.
@@ -34,12 +50,10 @@ const CustomerPage = () => {
           title="Top Productos"
           description="Explora los productos más populares entre nuestros clientes."
           buttonText="Ver más"
-          onButtonClick={() => alert("Ver productos clicked!")}
+          href='/dashboard/customer/products'
+
         >
-          <div className="grid grid-cols-1 gap-4">
-            <ProductPreview />
-            <ProductPreview />
-          </div>
+          <ProductsGrid isPreview={true} horizontal products={products} />
         </Card>
       </Grid>
     </div>

@@ -1,5 +1,10 @@
+"use client";
+
+import { ShoppingCartIcon } from "lucide-react";
 import Button from "../ui/button";
-import Link from "next/link";
+
+import { useCart } from "@/app/context/CartContext";
+import Badge from "../ui/badge";
 
 interface MenuBarButton {
   label: string;
@@ -11,35 +16,34 @@ interface MenuBarProps {
 }
 
 const MenuBar = ({ buttons }: MenuBarProps) => {
+  const { cart } = useCart();
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
   return (
-    <nav className="flex flex-wrap sm:flex-row flex-col-reverse items-center justify-between sm:gap-4 gap-8 sm:px-6 py-3 sm:w-full max-w-dvh">
-      <div className="flex flex-wrap sm:flex-row flex-col items-center gap-6">
+    <nav className="flex flex-wrap sm:flex-row flex-col-reverse items-center justify-between sm:gap-4 gap-8 sm:px-6 py-3 w-full max-w-dvh">
+      <div className="flex flex-wrap sm:flex-row flex-col items-center gap-6 sm:gap-4 w-full sm:w-auto">
         {buttons.map((button, index) => (
-            <Button
+          <Button
             key={index}
             variant="outline"
             type="button"
             className="w-full sm:w-auto"
-            >
-            <Link href={button.href}>
-              {button.label}
-            </Link>
-            </Button>
+            href={button.href}
+          >
+            {button.label}
+          </Button>
         ))}
       </div>
       <div className="flex items-center gap-3">
-        <Button variant="icon" type="button">
-          <Link href="/cart" className="flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24">
-              <path d="M6 6h15l-1.5 9h-13z" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
-              <circle cx="9" cy="20" r="1" fill="currentColor"/>
-              <circle cx="18" cy="20" r="1" fill="currentColor"/>
-            </svg>
-          </Link>
+        <Button variant="icon" type="button" className="relative" href="/cart">
+          <ShoppingCartIcon className="absolute w-full h-full inset-0" />
+          {totalItems > 0 && (
+            <Badge totalItems={totalItems}/>
+          )}
         </Button>
       </div>
     </nav>
   );
-}
+};
 
 export default MenuBar;

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { SessionProvider } from "next-auth/react";
 
+import { CartProvider } from "./context/CartContext";
+
 import "./globals.css";
 
 import NavBar from "@/components/layout/navbar/navbar";
@@ -30,6 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <SessionProvider>
+        <CartProvider>
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased grid grid-rows-[auto_1fr_auto] min-h-dvh`}
         >
@@ -39,6 +42,7 @@ export default function RootLayout({
           </main>
           <Footer />
         </body>
+        </CartProvider>
       </SessionProvider>
     </html>
   );

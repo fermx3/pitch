@@ -1,6 +1,6 @@
 import Button from "@/components/ui/button";
 import { Session } from "next-auth";
-import Link from "next/link";
+import CartCountButton from "@/components/products/cart-count-button";
 
 interface DesktopMenuProps {
   session: Session | null;
@@ -9,6 +9,8 @@ interface DesktopMenuProps {
 }
 
 const DesktopMenu = ({ session, signOut, status }: DesktopMenuProps) => {
+  const role = session?.user.role;
+
   return (
     <div className="space-x-4 flex items-center hidden md:flex">
       {session && session.user && (
@@ -17,18 +19,19 @@ const DesktopMenu = ({ session, signOut, status }: DesktopMenuProps) => {
         </span>
       )}
       {status !== "authenticated" ? (
-        <Button variant="primary" type="button">
-          <Link href="/auth/login">Login</Link>
+        <Button variant="primary" type="button" href="/auth/login">
+          Login
         </Button>
       ) : (
         <>
-          <Button>
-            <Link href={`/dashboard/${session?.user.role}`}>Dashboard</Link>
-          </Button>
+          <Button href={`/dashboard/${session?.user.role}`}>Dashboard</Button>
           <Button onClick={() => signOut()} variant="secondary" type="button">
             Logout
           </Button>
         </>
+      )}
+      {status === "authenticated" && role === 'customer' && (
+        <CartCountButton />
       )}
     </div>
   );
