@@ -6,10 +6,13 @@ import { useState } from "react";
 import HamburguerIcon from "@/components/ui/hamburguer-icon";
 import DesktopMenu from "./desktop-menu";
 import MobileMenu from "./mobile-menu";
+import CartCountButton from "@/components/products/cart-count-button";
 
 const NavBar = () => {
   const { data: session, status } = useSession();
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const role = session?.user?.role;
 
   return (
     <nav className="bg-gray-800 p-4 shadow-md sticky w-full z-10 top-0">
@@ -19,10 +22,15 @@ const NavBar = () => {
             Pitch
           </Link>
         </div>
-        <HamburguerIcon
-          isOpen={menuOpen}
-          onClick={() => setMenuOpen((prev) => !prev)}
-        />
+        <div className="md:hidden flex space-x-4">
+          <HamburguerIcon
+            isOpen={menuOpen}
+            onClick={() => setMenuOpen((prev) => !prev)}
+          />
+          {status === "authenticated" && role === "customer" && (
+            <CartCountButton />
+          )}
+        </div>
         <DesktopMenu session={session} status={status} signOut={signOut} />
       </div>
       {menuOpen && (
