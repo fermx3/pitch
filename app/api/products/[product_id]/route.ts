@@ -1,7 +1,9 @@
 import { getProductById } from '@/lib/products';
+import { NextRequest } from 'next/server';
 
 export async function GET(
-  { params }: { params: { product_id: string } }
+  req: NextRequest,
+  { params }: { params: { product_id: number } }
 ) {
   const id = Number(params.product_id);
   if (isNaN(id)) {
