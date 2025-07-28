@@ -1,8 +1,6 @@
 import { getProductById } from '@/lib/products';
-import { NextRequest } from 'next/server';
 
 export async function GET(
-  req: NextRequest,
   { params }: { params: { product_id: string } }
 ) {
   const id = Number(params.product_id);
