@@ -3,9 +3,9 @@ import { NextRequest } from 'next/server';
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { category: string } }
+  { params }: { params: Promise<{ category: string }> }
 ) {
-  const { category } = params;
+  const { category } = await params;
   const products = await getProductsByCategory(category);
   return Response.json(products);
 }
