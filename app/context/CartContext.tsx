@@ -9,6 +9,7 @@ export type CartItem = {
   precio_en_oferta?: number | null;
   quantity: number;
   imageUrl?: string | null;
+  stock?: number;
 };
 
 type CartContextType = {

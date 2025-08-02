@@ -6,6 +6,8 @@ import Button from "@/components/ui/button";
 const CartPage = () => {
   const { cart, removeFromCart, clearCart, updateQuantity } = useCart();
 
+  console.log("Cart items:", cart);
+
   // Usa precio_en_oferta si existe, si no usa price
   const getTotal = () =>
     cart.reduce(
@@ -14,6 +16,9 @@ const CartPage = () => {
         ((item.precio_en_oferta ?? item.price) * item.quantity),
       0
     );
+
+  // Prevent adding more items than available stock
+  const canAddMore = (item: CartItem) => item.quantity < (item.stock ?? Infinity);
 
   if (cart.length === 0) {
     return (
@@ -72,6 +77,7 @@ const CartPage = () => {
                   className="px-2 py-1"
                   onClick={() => updateQuantity(item.id, item.quantity + 1)}
                   type="button"
+                  disabled={!canAddMore(item)}
                 >
                   +
                 </Button>

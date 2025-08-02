@@ -13,16 +13,60 @@ type AddToCartButtonProps = {
 };
 
 const AddToCartButton: React.FC<AddToCartButtonProps> = ({ product }) => {
-  const { addToCart } = useCart();
+  const { addToCart, cart } = useCart();
   const [showToast, setShowToast] = useState(false);
+  const [selectedQuantity, setSelectedQuantity] = useState(1);
+  const [message, setMessage] = useState("");
+
+  // Calculate how many of this product are already in the cart
+  const cartQuantity = cart?.find((item) => item.id === product.id)?.quantity || 0;
+  const maxAvailable = product.stock - cartQuantity;
 
   const handleAddToCart = () => {
-    addToCart({ ...product, id: Number(product.id), quantity: 1 });
+    if (selectedQuantity === 0) {
+      setMessage("Por favor, selecciona una cantidad válida.");
+      setShowToast(true);
+      return;
+    }
+    addToCart({
+      ...product,
+      id: Number(product.id),
+      quantity: selectedQuantity,
+    });
+    setMessage(`Producto añadido al carrito: ${product.name} (${selectedQuantity})`);
     setShowToast(true);
   };
 
+  const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+    if (inputValue === "") {
+      setSelectedQuantity(0);
+    } else {
+      const value = Math.max(1, Math.min(maxAvailable, Number(inputValue)));
+      setSelectedQuantity(isNaN(value) ? 1 : value);
+    }
+  };
+
+  if (maxAvailable <= 0) {
+    return (
+      <Button className="w-full" disabled>
+        Sin stock
+      </Button>
+    );
+  }
+
   return (
-    <>
+    <div className="flex items-center gap-4 justify-end flex-wrap">
+      <input
+        type="number"
+        min={1}
+        max={product.stock}
+        value={selectedQuantity === 0 ? "" : selectedQuantity}
+        onChange={(e) => {
+          handleQuantityChange(e);
+        }}
+        className="mr-2 rounded border px-2 py-2 text-sm text-gray-700 focus:border-blue-500 focus:outline-none w-16"
+      />
       <Button
         variant="cta"
         onClick={handleAddToCart}
@@ -49,11 +93,12 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({ product }) => {
         Añadir al carrito
       </Button>
       <ToastNotification
-        message={`"${product.name}" ha sido añadido al carrito.`}
+        message={message}
+        color={selectedQuantity === 0 ? "red" : "black"}
         show={showToast}
         onClose={() => setShowToast(false)}
       />
-    </>
+    </div>
   );
 };
 
