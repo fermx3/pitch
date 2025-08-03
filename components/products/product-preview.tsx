@@ -51,8 +51,8 @@ const ProductPreview = (props: ProductPreviewProps) => {
         </div>
         <h4 className="text-md font-bold">{productProps.name}</h4>
         {productProps.category && (
-          <Link href={`/dashboard/customer/products/categories/${productProps.category}`} className="text-xs text-gray-400 mb-1 capitalize">
-            {productProps.category}
+          <Link href={`/dashboard/customer/products/categories/${productProps.category.slug}`} className="text-xs text-gray-400 mb-1 capitalize">
+            {productProps.category.name}
           </Link>
         )}
 

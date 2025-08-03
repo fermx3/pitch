@@ -35,7 +35,7 @@ const CustomerPage = () => {
         { label: "Perfil", href: "/dashboard/customer/profile" },
         { label: "Soporte", href: "/dashboard/customer/support" }
       ]}/>
-      <Grid>
+      <Grid cols={2}>
         <Card
           title="Promociones Especiales"
           description="Descubre nuestras últimas ofertas y promociones exclusivas para clientes."

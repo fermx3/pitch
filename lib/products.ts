@@ -3,6 +3,7 @@ import { prisma } from './prisma'
 export async function getAllProducts() {
   return prisma.product.findMany(
     {
+      include: { category: true },
       orderBy: {
         created_at: 'desc',
       },
@@ -12,6 +13,7 @@ export async function getAllProducts() {
 
 export async function getTopProducts() {
   return prisma.product.findMany({
+    include: { category: true },
     where: { is_top_product: true },
     orderBy: {
       created_at: 'desc',
@@ -26,12 +28,15 @@ export async function getProductById(id: number) {
 }
 
 export async function getProductsByCategory(category: string) {
-  return prisma.product.findMany({
-    where: { category },
+  const products = await prisma.product.findMany({
+    where: { category: { slug: category } },
     orderBy: {
       created_at: 'desc',
     },
-  })
+    include: { category: true },
+  });
+
+  return products
 }
 
 export async function searchProducts(query: string) {

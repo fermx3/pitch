@@ -22,7 +22,10 @@ const CategoryProductsPage = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-4">Productos en la categoría: {category}</h1>
+      <h1 className="text-2xl font-bold mb-4">
+        Productos en la categoría:{" "}
+        {products.length !== 0 ? products[0]?.category?.name : category}
+      </h1>
       {loading ? (
         <div>Cargando productos...</div>
       ) : (
@@ -40,6 +43,6 @@ const CategoryProductsPage = () => {
       </div>
     </div>
   );
-}
+};
 
 export default CategoryProductsPage;

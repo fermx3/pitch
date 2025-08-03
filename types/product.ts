@@ -5,7 +5,12 @@ export type ProductType = {
   short_description?: string | null;
   price: number;
   image_url?: string | null;
-  category?: string | null;
+  category: {
+    id: number;
+    name: string;
+    slug: string;
+  } | null;
+  is_top_product: boolean;
   stock: number;
   sku?: string | null;
   bodega_id: number;
