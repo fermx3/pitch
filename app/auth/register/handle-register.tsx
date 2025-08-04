@@ -17,6 +17,7 @@ export const handleRegister = async (
     name: formData.get("name") as string,
     email: formData.get("email") as string,
     password: formData.get("password") as string,
+    confirmPassword: formData.get("confirm_password") as string,
   };
 
   const result = registerSchema.safeParse(data);

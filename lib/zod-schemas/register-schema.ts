@@ -18,4 +18,11 @@ export const registerSchema = z.object({
       /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{8,20}$/,
       "La contraseña debe contener letras, números y puede incluir símbolos"
     ),
-});
+  confirmPassword: z.string(),
+}).refine(
+  (data) => data.password === data.confirmPassword,
+  {
+    message: "Las contraseñas no coinciden",
+    path: ["confirmPassword"],
+  }
+);

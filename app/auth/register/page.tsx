@@ -15,6 +15,7 @@ export default function RegisterPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   // Limpia los campos solo si el registro fue exitoso
   if (formState.success) {
@@ -22,6 +23,7 @@ export default function RegisterPage() {
     setName("");
     setEmail("");
     setPassword("");
+    setConfirmPassword("");
     formState.success = null; // Limpia el mensaje de éxito
     formState.error = null; // Limpia cualquier error previo
     window.location.href = "/auth/register/success";
@@ -94,6 +96,24 @@ export default function RegisterPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Al menos 8 caracteres con letras y números"
+              className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+              required
+            />
+          </div>
+          <div>
+            <label
+              className="block text-sm font-medium mb-2"
+              htmlFor="confirm_password"
+            >
+              Contraseña
+            </label>
+            <input
+              type="password"
+              name="confirm_password"
+              id="confirm_password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="Confirma tu contraseña"
               className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
               required
             />
