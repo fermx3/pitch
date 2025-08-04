@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Link from "next/link";
 
-import { SearchIcon, SquareArrowRight } from "lucide-react";
+import { SearchIcon, SquareArrowRight, CircleX } from "lucide-react";
 import SearchLoader from "../ui/search-loader";
 
 type Item = {
@@ -30,7 +30,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
       return;
     }
     if (items.length === 0) {
-      setResults([ { id: "", name: "No results found" } ]);
+      setResults([ { id: "", name: "Ver todos los productos" } ]);
       setLoading(false);
       return;
     }
@@ -58,8 +58,19 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
       </form>
       {results.length > 0 && (
         <div className="absolute top-full left-0 w-full bg-white shadow-lg rounded-lg mt-2 p-4">
-          {loading && <p>Loading...</p>}
-          {!loading && results.length === 0 && <p>No results found</p>}
+          <div className="flex items-center justify-between mb-2">
+            <button
+              className="absolute -top-2 -left-2 text-red-500 hover:text-red-700 bg-white rounded-full"
+              onClick={() => {
+                setResults([]);
+                setQuery("");
+              }}
+            >
+              <CircleX className="h-8 w-8" />
+            </button>
+          </div>
+          {loading && <p>Buscando...</p>}
+          {!loading && results[0].id == "" && <p>No se encontraron productos</p>}
           {!loading && results.length > 0 && (
             <ul className="max-h-60 overflow-y-auto">
               {results.map((item) => (
