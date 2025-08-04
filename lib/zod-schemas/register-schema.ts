@@ -14,5 +14,8 @@ export const registerSchema = z.object({
     .string()
     .min(8, "La contraseña debe tener al menos 8 caracteres")
     .max(20, "La contraseña debe tener máximo 20 caracteres")
-    .regex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/, "La contraseña debe contener letras y números"),
+    .regex(
+      /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{8,20}$/,
+      "La contraseña debe contener letras, números y puede incluir símbolos"
+    ),
 });
