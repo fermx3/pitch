@@ -23,6 +23,7 @@ export async function getTopProducts() {
 
 export async function getProductById(id: number) {
   return prisma.product.findUnique({
+    include: { category: true },
     where: { id },
   })
 }

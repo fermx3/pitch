@@ -19,8 +19,8 @@ const Product = (product: ProductType) => {
       <div className="flex-1">
         <h1 className="text-2xl font-bold mb-2">{product.name}</h1>
         {product.category && (
-          <Link href={`/dashboard/customer/products/categories/${product.category}`} className="text-xs text-gray-400 mb-1 capitalize">
-            {product.category}
+          <Link href={`/dashboard/customer/products/categories/${product.category.slug}`} className="text-xs text-gray-400 mb-1 capitalize">
+            {product.category.name}
           </Link>
         )}
         <div className="mb-4">

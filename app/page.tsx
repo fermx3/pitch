@@ -18,7 +18,16 @@ const Home = () => {
           Ir al Dashboard
         </Button>
       ) : (
-        <Button href="/auth/login">Login</Button>
+        <div className="flex flex-col items-center shadow-lg p-6 rounded-lg bg-white">
+        <h2 className="text-2xl font-semibold mb-4">Inicia sesión o regístrate</h2>
+        <p className="text-gray-600 mb-4">
+          Para acceder a todas las funcionalidades de Pitch.
+        </p>
+        <Button href="/auth/login" className="mb-2">
+          Login
+        </Button>
+        <Button variant="cta" href="/auth/register">Registrarse</Button>
+      </div>
       )}
     </main>
   );
