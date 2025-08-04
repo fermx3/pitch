@@ -19,9 +19,14 @@ const DesktopMenu = ({ session, signOut, status }: DesktopMenuProps) => {
         </span>
       )}
       {status !== "authenticated" ? (
+        <>
+        <Button variant="secondary" type="button" href="/auth/register">
+          Registrarse
+        </Button>
         <Button variant="primary" type="button" href="/auth/login">
           Login
         </Button>
+        </>
       ) : (
         <>
           <Button href={`/dashboard/${session?.user.role}`}>Dashboard</Button>

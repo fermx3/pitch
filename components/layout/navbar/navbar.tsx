@@ -29,9 +29,14 @@ const NavBar = () => {
             Pitch
           </Link>
         </div>
-        <div className="hidden md:flex space-x-4 relative w-full max-w-md">
-          <SearchBar onSearch={handleSearch} />
-        </div>
+        {
+          /* Show search bar only on larger screens and only for customers */
+          role === "customer" && status === "authenticated" && (
+            <div className="hidden md:flex space-x-4 relative w-full max-w-md">
+              <SearchBar onSearch={handleSearch} />
+            </div>
+          )
+        }
         <div className="md:hidden flex space-x-4">
           <HamburguerIcon
             isOpen={menuOpen}
@@ -49,11 +54,14 @@ const NavBar = () => {
           status={status}
           signOut={signOut}
           menuOpen={menuOpen}
+          setMenuOpen={setMenuOpen}
         />
       )}
+      { /* Show search bar on mobile when menu is open and only for customers */
+        role === "customer" && status === "authenticated" &&
       <div className="sm:hidden flex justify-between items-center mt-4">
         <SearchBar onSearch={handleSearch} />
-      </div>
+      </div>}
     </nav>
   );
 };

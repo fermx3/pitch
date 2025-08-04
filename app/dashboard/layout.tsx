@@ -8,6 +8,8 @@ const DashboardLayout = async ({
 }>) => {
   const session = await auth();
 
+  console.log("Session in DashboardLayout:", session);
+
   if (!session) {
     redirect("/auth/login");
   }

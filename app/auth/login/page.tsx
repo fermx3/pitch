@@ -47,7 +47,7 @@ const LoginForm = () => {
           </div>
           <Button
             type="submit"
-            className="rounded-lg"
+            className="rounded-lg mt-4"
             fullWidth
           >
             Login

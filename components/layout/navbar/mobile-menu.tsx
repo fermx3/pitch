@@ -8,9 +8,15 @@ interface MobileMenuProps {
   status: string;
   menuOpen: boolean;
   signOut: () => void;
+  setMenuOpen: (open: boolean) => void;
 }
 
-const MobileMenu = ({ session, status, signOut }: MobileMenuProps) => {
+const MobileMenu = ({
+  session,
+  status,
+  signOut,
+  setMenuOpen,
+}: MobileMenuProps) => {
   return (
     <div className="md:hidden mt-2 px-4 pb-4 flex flex-col space-y-2 bg-gray-800">
       {session && session.user && (
@@ -19,16 +25,36 @@ const MobileMenu = ({ session, status, signOut }: MobileMenuProps) => {
         </span>
       )}
       {status !== "authenticated" ? (
-        <Button variant="primary" type="button" fullWidth href="/auth/login">
-          Login
-        </Button>
+        <>
+          <Button
+            variant="secondary"
+            type="button"
+            href="/auth/register"
+            onClick={() => setMenuOpen(false)}
+          >
+            Registrarse
+          </Button>
+          <Button
+            variant="primary"
+            type="button"
+            fullWidth
+            href="/auth/login"
+            onClick={() => setMenuOpen(false)}
+          >
+            Login
+          </Button>
+        </>
       ) : (
         <>
-          <Button fullWidth href={`/dashboard/${session?.user.role}`}>
+          <Button
+            fullWidth
+            href={`/dashboard/${session?.user.role}`}
+            onClick={() => setMenuOpen(false)}
+          >
             Dashboard
           </Button>
           <Button
-            onClick={() => signOut()}
+            onClick={() => {signOut(); setMenuOpen(false);}}
             variant="secondary"
             type="button"
             className="w-full"

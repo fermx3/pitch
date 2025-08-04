@@ -22,7 +22,7 @@ export const handleLoginSubmission = async (
     if (result.error === "CredentialsSignin") {
       return { error: "Invalid username or password" };
     } else {
-      return { error: "An unknown error occurred. Please try again later." };
+      return { error: result.error || "An unexpected error occurred" };
     }
   } else {
     const session = await getSession();

@@ -52,18 +52,27 @@ const Button: React.FC<ButtonProps> = ({
     ${className}
   `;
 
+  // If the button is disabled and not a link, apply additional styles
   if (disabled && variant !== "link") {
     className += " opacity-50 cursor-not-allowed";
   }
 
+  // If href is provided, render as a link
   if (href) {
     return (
-      <Link href={href} className={`inline-block text-center ${baseClasses}`}>
+      <Link
+        href={href}
+        className={`inline-block text-center ${baseClasses}`}
+        {...(type !== "button" ? { type } : {})}
+        {...(onClick ? { onClick } : {})}
+        {...(disabled ? { "aria-disabled": true } : {})}
+      >
         {children}
       </Link>
     );
   }
 
+  // Otherwise, render as a button
   return (
     <button
       type={type}
