@@ -30,7 +30,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
       return;
     }
     if (items.length === 0) {
-      setResults([ { id: "", name: "Ver todos los productos" } ]);
+      setResults([{ id: "", name: "Ver todos los productos" }]);
       setLoading(false);
       return;
     }
@@ -66,11 +66,13 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
                 setQuery("");
               }}
             >
-              <CircleX className="h-8 w-8" />
+              <CircleX className="h-8 w-8 cursor-pointer" />
             </button>
           </div>
           {loading && <p>Buscando...</p>}
-          {!loading && results[0].id == "" && <p>No se encontraron productos</p>}
+          {!loading && results[0].id == "" && (
+            <p>No se encontraron productos</p>
+          )}
           {!loading && results.length > 0 && (
             <ul className="max-h-60 overflow-y-auto">
               {results.map((item) => (

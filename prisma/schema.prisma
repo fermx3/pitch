@@ -19,8 +19,16 @@ model User {
   name       String
   email      String?  @unique
   password   String
-  role       String   @default("customer") // customer, admin
+  role       UserRole @default(customer)
   created_at DateTime @default(now())
+}
+
+enum UserRole {
+  customer
+  almacen
+  delivery
+  proveedor
+  admin
 }
 
 model Product {
