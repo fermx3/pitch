@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 
 type LoginState = {
   error: string | null;
-}
+};
 
 export const handleLoginSubmission = async (
   _prevState: LoginState,
@@ -18,9 +18,11 @@ export const handleLoginSubmission = async (
     redirect: false,
   });
 
+  console.log("Login result:", result);
+
   if (result?.error) {
     if (result.error === "CredentialsSignin") {
-      return { error: "Invalid username or password" };
+      return { error: "Usuario o contraseña incorrectos" };
     } else {
       return { error: result.error || "An unexpected error occurred" };
     }

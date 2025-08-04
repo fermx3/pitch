@@ -26,7 +26,7 @@ export const authConfig: NextAuthConfig = {
           });
 
           if (!user) {
-            throw new Error("User not found");
+            return null; // Do not throw an error, just return null to let prisma handle it
           }
 
           // Check if the hashed password matches
@@ -35,7 +35,7 @@ export const authConfig: NextAuthConfig = {
             user.password
           );
           if (!paswordMatch) {
-            throw new Error("Invalid password");
+            return null; // Do not throw an error, just return null to let prisma handle it
           }
 
           // Return user data if authentication is successful
